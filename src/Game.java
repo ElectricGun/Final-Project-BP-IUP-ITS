@@ -24,11 +24,11 @@ public class Game {
         {29, 9}, {38, 15}, {47, 5}, {53, 33}, {62, 37}, {86, 54}, {92, 70},  {97, 25}
     };
 
-    public Game(int numPlayers, int tileSize) {
+    public Game(int numPlayers, int tileScale) {
 
         // ----- set tile size
 
-        spacesPerTile = Functions.getDigits10(numberOfTiles) + tileSize + 1;
+        spacesPerTile = (Functions.getDigits10(numberOfTiles) + numPlayers * 2) * tileScale + 1;
 
         // ----- initialise players
         for (int i = 0; i < numPlayers; i++) {
