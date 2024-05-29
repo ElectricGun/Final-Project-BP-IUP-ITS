@@ -28,7 +28,7 @@ public class Game {
 
         // ----- set tile size
 
-        spacesPerTile = (Functions.getDigits10(numberOfTiles) + numPlayers * 2) * tileScale + 1;
+        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles), numPlayers)) * tileScale + 1;
 
         // ----- initialise players
         for (int i = 0; i < numPlayers; i++) {
