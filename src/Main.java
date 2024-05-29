@@ -94,6 +94,7 @@ public class Main {
                 if (winner != null) {
                     System.out.println("The winner is: " + winner.getName() + "!");
                     game.endGame();
+                    game.printTable();
                     break;
                 }
 
