@@ -28,7 +28,7 @@ public class Main {
             System.out.println("Please enter the number of players (max 4).");
         }
 
-        Game game = new Game(numPlayers, 0);
+        Game game = new Game(numPlayers, 1);
 
         Dice dice = new Dice(6);
 
