@@ -63,7 +63,7 @@ public class Main {
                 int previousCase = currPlayer.getCurrentCase();
 
                 game.movePlayer(i, moveSteps);
-                System.out.println(currPlayer.getName() + " has moved from " + (previousCase + 1) + " to " + (currPlayer.getCurrentCase() + 1));
+                System.out.println(currPlayer.getName() + " has moved from " + (previousCase) + " to " + (currPlayer.getCurrentCase()));
                 
                 // -------- check if player has stepped on special case-
 
@@ -74,12 +74,12 @@ public class Main {
                     String tileName = tileAtPosition.getName();
 
                     System.out.println(
-                        game.getTile(currPlayer.getCurrentCase()).getColour() + currPlayer.getName() + " has stepped on a " + game.getTile(currPlayer.getCurrentCase()).getName() + " (Tile: " + (game.getTileIndex(game.getTile(currPlayer.getCurrentCase())) + 1) + ")" + Pallette.ANSI_RESET
+                        game.getTile(currPlayer.getCurrentCase()).getColour() + currPlayer.getName() + " has stepped on a " + game.getTile(currPlayer.getCurrentCase()).getName() + " (Tile: " + (game.getTileIndex(game.getTile(currPlayer.getCurrentCase()))) + ")" + Pallette.ANSI_RESET
                     );
 
                     if (tileName == TileNames.ladder || tileName == TileNames.snake) {
                         game.setPlayerPosition(i, tileAtPosition.getJumpIndex());
-                        System.out.println(currPlayer.getName() + " has moved from " + (previousCase + 1) + " to " + (currPlayer.getCurrentCase() + 1));
+                        System.out.println(currPlayer.getName() + " has moved from " + (previousCase) + " to " + (currPlayer.getCurrentCase()));
                     } else {
                         // if the player has stepped on a normal tile, break the loop
                         break;

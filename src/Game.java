@@ -17,7 +17,7 @@ public class Game {
 
     private final ArrayList<Player> players = new ArrayList<Player>();
     private final int[][] tileJumps = {
-        // -- {tilePosition, jumpIndex}
+        // -- {tileIndex, jumpIndex}
         // ladders
         {2, 23}, {8, 34}, {20, 77}, {32, 68}, {41, 79}, {74, 88}, {82, 100}, {85, 95},
         // snakes
@@ -32,17 +32,19 @@ public class Game {
 
         // ----- initialise players
         for (int i = 0; i < numPlayers; i++) {
-            players.add(new Player(i + 1, -1));
+            players.add(new Player(i + 1, 0));
         }
 
         // ----- initialise the game
 
-        Tile initialTile = new Tile(-1, -1);
+        // -- crate initial tile
+
+        Tile initialTile = new Tile(0, -1);
         initialTile.setName(TileNames.startingTile);
         board.add(initialTile);
 
         // -- create the tiles
-        for (int i = 0; i < numberOfTiles; i++ ) {
+        for (int i = 1; i <= numberOfTiles; i++ ) {
             board.add(new Tile(i, -1));
         }
 
@@ -76,8 +78,8 @@ public class Game {
         int currPlayerPosition = currPlayer.getCurrentCase();
         int jumpTo = steps + currPlayerPosition;
 
-        // active tiles are all tiles minus startingTile (tile #-1)
-        int activeTiles = numberOfTiles - 1;
+        // active tiles are all tiles minus startingTile (tile 0)
+        int activeTiles = numberOfTiles -1;
 
         if (jumpTo > activeTiles) {
             this.setPlayerPosition(playerIndex, activeTiles - (jumpTo - activeTiles));
@@ -87,7 +89,7 @@ public class Game {
 
         // to prevent player from returning to starting tile or below
 
-        if (currPlayer.getCurrentCase() <= -1) {
+        if (currPlayer.getCurrentCase() <= 0) {
             this.setPlayerPosition(playerIndex, Math.abs(currPlayer.getCurrentCase()));
         }
     }
@@ -161,11 +163,11 @@ public class Game {
 
                 Tile currentTile = board.get(currentTileIndex);
 
-                int tileDisplayNumber = currentTileIndex + 1;
+                int tileDisplayNumber = currentTileIndex;
 
                 int currentTileDigits = Functions.getDigits10(tileDisplayNumber);
 
-                if (currentTile.getNumber() == 0 || currentTile.getNumber() == -1) {
+                if (currentTile.getNumber() <= 0) {
                     currentTileDigits = 1;
                 }
                 
