@@ -150,7 +150,6 @@ public class Game {
         
 
         // get player positions
-
         int [] playerPositions = new int[players.size()];
 
         for (int p = 0; p < players.size(); p++) {
@@ -212,13 +211,11 @@ public class Game {
                     }
                     
                     System.out.print(Pallette.ANSI_RESET);
-
                     
                 }
             }
-
+            // print between the rows
             Functions.printLoop("\n", spacesPerTile / 2);
-
         }
     }
 }
