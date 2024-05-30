@@ -2,8 +2,8 @@ import java.lang.Math;
 import java.util.ArrayList;
 
 public class Game {
-    // tile number -1 is the Starting Tile. All players first spawn in on that tile. This tile is not displayed
-    // tile number 0 is the first tile
+    // tile number 0 is the Starting Tile. All players first spawn in on that tile. This tile is not displayed
+    // tile number 1 is the first tile
     // tiles are displayed using their number + 1
     private ArrayList<Tile> board = new ArrayList<Tile>();
 
