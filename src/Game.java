@@ -29,7 +29,7 @@ public class Game {
 
         // ----- set tile size
 
-        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles), numPlayers * 2)) * tileScale + 1;
+        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles * 2), numPlayers * 2)) * tileScale + 3;
 
         // ----- initialise players
         String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_RED, Pallette.ANSI_YELLOW};
@@ -176,8 +176,8 @@ public class Game {
                 Tile currentTile = board.get(currentTileIndex);
 
                 int tileDisplayNumber = currentTileIndex;
-
                 int currentTileDigits = Functions.getDigits10(tileDisplayNumber);
+                int currentJumpIndex = currentTile.getJumpIndex();
 
                 if (currentTile.getNumber() <= 0) {
                     currentTileDigits = 1;
@@ -199,20 +199,22 @@ public class Game {
                     Functions.printLoop(" ", spacesPerTile - playersInTile * 2);
                 }
                 if (doPrintNumber) {
-                    System.out.print(currentTile.getColour() + (tileDisplayNumber) + Pallette.ANSI_RESET);
-                    Functions.printLoop(" ", spacesPerTile - currentTileDigits);
-                }
 
-                // this is to print the arrows
-                /*
-                if (currentJumpIndex == -1) {
-                    System.out.print("\t");
-                } else {
-                    System.out.print("-->" + currentJumpIndex + Pallette.ANSI_RESET);
-                }
+                    System.out.print(currentTile.getColour() + (tileDisplayNumber));
 
-                System.out.print(Pallette.ANSI_RESET + "\t");
-                */
+                    // this is to print the arrows
+                    
+                    if (currentJumpIndex == -1) {
+                        Functions.printLoop(" ", spacesPerTile - currentTileDigits);
+                    } else {
+                        System.out.print("->" + currentJumpIndex + Pallette.ANSI_RESET);
+                        Functions.printLoop(" ", spacesPerTile - currentTileDigits - 2 - Functions.getDigits10(currentJumpIndex));
+                    }
+                    
+                    System.out.print(Pallette.ANSI_RESET);
+
+                    
+                }
             }
 
             Functions.printLoop("\n", spacesPerTile / 2);
