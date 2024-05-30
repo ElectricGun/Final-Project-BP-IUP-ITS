@@ -81,7 +81,7 @@ public class Game {
         int jumpTo = steps + currPlayerPosition;
 
         // active tiles is the max index of all tiles minus startingTile (tile 0)
-        int activeTiles = numberOfTiles -1;
+        int activeTiles = numberOfTiles;
 
         if (jumpTo > activeTiles) {
             this.setPlayerPosition(playerIndex, activeTiles - (jumpTo - activeTiles));
@@ -98,7 +98,7 @@ public class Game {
 
     public void setWinner() {
         for (Player player : players) {
-            if (player.getCurrentCase() == numberOfTiles -1) {
+            if (player.getCurrentCase() == numberOfTiles) {
                 winner = player;
             }
         }
