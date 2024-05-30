@@ -29,7 +29,7 @@ public class Game {
 
         // ----- set tile size
 
-        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles * 2), numPlayers * 2)) * tileScale + 3;
+        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles * 2 + 2), numPlayers * 2)) * tileScale + 2;
 
         // ----- initialise players
         String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_RED, Pallette.ANSI_YELLOW};
