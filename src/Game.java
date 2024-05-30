@@ -173,9 +173,7 @@ public class Game {
                 currentTileIndex += offset;
 
                 Tile currentTile = board.get(currentTileIndex);
-
-                int tileDisplayNumber = currentTileIndex;
-                int currentTileDigits = Functions.getDigits10(tileDisplayNumber);
+                int currentTileDigits = Functions.getDigits10(currentTileIndex);
                 int currentJumpIndex = currentTile.getJumpIndex();
 
                 if (currentTile.getNumber() <= 0) {
@@ -188,7 +186,7 @@ public class Game {
                 // print players
                 for (int p = 0; p < players.size(); p++) {
                     Player currPlayer = this.getPlayer(p);
-                    if (playerPositions[p] == tileDisplayNumber) {
+                    if (playerPositions[p] == currentTileIndex) {
                         System.out.print(currPlayer.getColour() + "P" + (p + 1) + Pallette.ANSI_RESET);
                         doPrintNumber = false;
                         playersInTile ++;
@@ -199,7 +197,7 @@ public class Game {
                 }
                 if (doPrintNumber) {
 
-                    System.out.print(currentTile.getColour() + (tileDisplayNumber));
+                    System.out.print(currentTile.getColour() + (currentTileIndex));
 
                     // this is to print the arrows
                     
