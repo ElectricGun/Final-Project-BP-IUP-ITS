@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Tile {
     private int number;
     private int jumpIndex;
@@ -7,7 +5,7 @@ public class Tile {
     // types are "Snake", "Ladder", "Tile"
     private String name;
 
-    private ArrayList<Player> players = new ArrayList<Player>();
+    //private ArrayList<Player> players = new ArrayList<Player>();
     
     private String colour = Pallette.ANSI_RESET;
 
@@ -50,15 +48,15 @@ public class Tile {
 
     // --------- setters
 
-    public void addPlayer(Player newPlayer) {
-        players.add(newPlayer);
-    }
-
-    public void deletePlayer(Player deletePlayer) {
-
-        int indexOfPlayer = players.indexOf(deletePlayer);
-        players.remove(indexOfPlayer);
-    }
+    //public void addPlayer(Player newPlayer) {
+    //    players.add(newPlayer);
+    //}
+//
+    //public void deletePlayer(Player deletePlayer) {
+//
+    //    int indexOfPlayer = players.indexOf(deletePlayer);
+    //    players.remove(indexOfPlayer);
+    //}
 
     public void setName(String newName) {   
         name = newName;
@@ -82,9 +80,9 @@ public class Tile {
         return name;
     }
 
-    public ArrayList<Player> getPlayers () {
-        return players;
-    }
+    //public ArrayList<Player> getPlayers () {
+    //    return players;
+    //}
 
     public int getNumber() {
         return number;

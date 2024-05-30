@@ -1,11 +1,13 @@
 public class Player {
     private final int number;
+    private final String colour;
     private String name = "Player ";
     private int currentTile;
-    public Player(int number, int currentTile){
+    public Player(int number, int currentTile, String colour){
         this.number = number;
         this.name += number;
         this.currentTile = currentTile;
+        this.colour = colour;
     }
     public int getNumber(){
         return this.number;
@@ -18,5 +20,9 @@ public class Player {
     }
     public void setCurrentCase(int n){
         this.currentTile = n;
+    }
+
+    public String getColour() {
+        return this.colour;
     }
 }

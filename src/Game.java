@@ -7,6 +7,7 @@ public class Game {
     // tiles are displayed using their number + 1
     private ArrayList<Tile> board = new ArrayList<Tile>();
 
+    public final int offset = 1;
     private final int boardHeight = 10;
     private final int boardWidth = 10;
     private final int numberOfTiles = boardHeight * boardWidth;
@@ -28,11 +29,12 @@ public class Game {
 
         // ----- set tile size
 
-        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles), numPlayers)) * tileScale + 1;
+        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles), numPlayers * 2)) * tileScale + 1;
 
         // ----- initialise players
+        String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_RED, Pallette.ANSI_YELLOW};
         for (int i = 0; i < numPlayers; i++) {
-            players.add(new Player(i + 1, 0));
+            players.add(new Player(i + 1, 0, playerColours[i % numPlayers]));
         }
 
         // ----- initialise the game
@@ -70,8 +72,8 @@ public class Game {
 
         currPlayer.setCurrentCase(newPosition);
         players.set(playerIndex, currPlayer);
-    }   
-
+    }
+    
     public void movePlayer(int playerIndex, int steps) {
         Player currPlayer = this.getPlayer(playerIndex);
 
@@ -79,9 +81,7 @@ public class Game {
         int jumpTo = steps + currPlayerPosition;
 
         // active tiles is the max index of all tiles minus startingTile (tile 0)
-        int activeTiles = numberOfTiles -1 -1;
-
-        System.out.println(activeTiles);
+        int activeTiles = numberOfTiles -1;
 
         if (jumpTo > activeTiles) {
             this.setPlayerPosition(playerIndex, activeTiles - (jumpTo - activeTiles));
@@ -137,6 +137,7 @@ public class Game {
     }
 
     public void printTable () {
+        
         /*
         for(Tile tile : board) {
             System.out.println(
@@ -145,8 +146,16 @@ public class Game {
                 tile.getNumber() + 
                 (tile.getJumpIndex() == -1 ? "" : "--->" + tile.getJumpIndex())
             );
+        }*/
+        
+
+        // get player positions
+
+        int [] playerPositions = new int[players.size()];
+
+        for (int p = 0; p < players.size(); p++) {
+            playerPositions[p] = this.getPlayer(p).getCurrentCase();
         }
-        */
         
         for (int y = 0; y < boardHeight; y++) {
 
@@ -162,6 +171,7 @@ public class Game {
                 if (yIndex % 2 == 1) {
                     currentTileIndex = (startIndex + boardWidth) - x - 1;
                 }
+                currentTileIndex += offset;
 
                 Tile currentTile = board.get(currentTileIndex);
 
@@ -172,10 +182,26 @@ public class Game {
                 if (currentTile.getNumber() <= 0) {
                     currentTileDigits = 1;
                 }
-                
-                System.out.print(currentTile.getColour() + (tileDisplayNumber));
 
-                Functions.printLoop(" ", spacesPerTile - currentTileDigits); 
+                boolean doPrintNumber = true;
+                int playersInTile = 0;
+
+                // print players
+                for (int p = 0; p < players.size(); p++) {
+                    Player currPlayer = this.getPlayer(p);
+                    if (playerPositions[p] == tileDisplayNumber) {
+                        System.out.print(currPlayer.getColour() + "P" + (p + 1) + Pallette.ANSI_RESET);
+                        doPrintNumber = false;
+                        playersInTile ++;
+                    }
+                }
+                if (playersInTile > 0) {
+                    Functions.printLoop(" ", spacesPerTile - playersInTile * 2);
+                }
+                if (doPrintNumber) {
+                    System.out.print(currentTile.getColour() + (tileDisplayNumber) + Pallette.ANSI_RESET);
+                    Functions.printLoop(" ", spacesPerTile - currentTileDigits);
+                }
 
                 // this is to print the arrows
                 /*
