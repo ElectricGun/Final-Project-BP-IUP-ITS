@@ -5,6 +5,7 @@ public class Main {
 
         final int maxNumPlayers = 6;
         final int maxDieSides = 20;
+        boolean autoMode = false;
         
         Scanner read = new Scanner(System.in);
         System.out.println();
@@ -67,12 +68,14 @@ public class Main {
             for (int i = 0; i < numPlayers; i++) {
 
                 Player currPlayer = game.getPlayer(i);
-                // get input
-                System.out.println(currPlayer.getName() + "'s turn! \nEnter anything to continue.");
-                String rolling = read.nextLine();
+                if (!autoMode) {
+                    // get input
+                    System.out.println(currPlayer.getName() + "'s turn! \nEnter anything to continue.");
+                    String rolling = read.nextLine();
                     
-                while(rolling.isBlank())
-                    rolling = read.nextLine();
+                    while(rolling.isBlank())
+                        rolling = read.nextLine();
+                }
 
                 Functions.printLoop("\n", 15);
 
