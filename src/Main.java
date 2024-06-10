@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args){
 
         final int maxNumPlayers = 6;
+        final int maxDieSides = 20;
         
         Scanner read = new Scanner(System.in);
         System.out.println();
@@ -31,9 +32,25 @@ public class Main {
             System.out.println("Please enter the number of players (max " + maxNumPlayers + ").");
         }
 
+        System.out.println("Now, please enter the number of sides for the die (max " + maxDieSides + ").");
+
+        // get the sides of die
+        int dieSides = 0;
+        while (true) {
+            dieSides = read.nextInt();
+            if(dieSides > maxDieSides) {
+                System.out.println("Maximum die sides is " + maxDieSides + "!");
+            } else if (numPlayers <= 0) {
+                System.out.println("Die sides cannot be less than 1!");
+            } else {
+                break;
+            }
+            System.out.println("Please enter the number of die sides (max " + maxDieSides + ").");
+        }
+
         Game game = new Game(numPlayers, 1);
 
-        Dice dice = new Dice(6);
+        Dice dice = new Dice(dieSides);
 
         System.out.println(
             "\n\n" +
