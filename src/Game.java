@@ -33,8 +33,40 @@ public class Game {
 
         // ----- initialise players
         String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_RED, Pallette.ANSI_YELLOW};
-        for (int i = 0; i < numPlayers; i++) {
-            players.add(new Player(i + 1, 0, playerColours[i % numPlayers]));
+        //for (int i = 0; i < numPlayers; i++) {
+        //    players.add(new Player(i + 1, 0, playerColours[i % numPlayers]));
+        //}
+
+        if(numPlayers > 1) {
+            System.out.println();
+            System.out.println("Each player will roll the dice to decide the players' turn.");
+            int[] orders = new int[numPlayers];
+            int[] exc = new int[6];
+
+            for (int i = 0; i < numPlayers; i++) {
+                int x = Functions.randomInt(exc);
+                exc[i] = x;
+                orders[i] = x;
+                System.out.println("Player " + (i + 1) + " has rolled " + x);
+            }
+            System.out.println();
+
+            for (int i = 0; i < numPlayers; i++) {
+                int ind = Functions.maxList(orders);
+                orders[ind] = -1;
+
+                this.players.add(new Player(ind+1, 0, playerColours[i % numPlayers]));
+            }
+            System.out.println("The order of players' turn will be as following:");
+            for (int i = 0; i < numPlayers; i++) {
+                System.out.println(players.get(i).getName());
+            }
+            System.out.println();
+        }
+        else {
+            for (int i = 0; i < numPlayers; i++) {
+                this.players.add(new Player(i+1, 0, playerColours[i % numPlayers]));
+            }
         }
 
         // ----- initialise the game
@@ -186,8 +218,11 @@ public class Game {
                 // print players
                 for (int p = 0; p < players.size(); p++) {
                     Player currPlayer = this.getPlayer(p);
+
+                    int playerID = currPlayer.getNumber();
+
                     if (playerPositions[p] == currentTileIndex) {
-                        System.out.print(currPlayer.getColour() + "P" + (p + 1) + Pallette.ANSI_RESET);
+                        System.out.print(currPlayer.getColour() + "P" + playerID + Pallette.ANSI_RESET);
                         doPrintNumber = false;
                         playersInTile ++;
                     }
