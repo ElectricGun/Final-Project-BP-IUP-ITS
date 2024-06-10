@@ -32,7 +32,7 @@ public class Game {
         spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles * 2 + 2), numPlayers * 2)) * tileScale + 2;
 
         // ----- initialise players
-        String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_RED, Pallette.ANSI_YELLOW};
+        String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_BLUE, Pallette.ANSI_YELLOW, Pallette.ANSI_GREEN, Pallette.ANSI_RED};
         //for (int i = 0; i < numPlayers; i++) {
         //    players.add(new Player(i + 1, 0, playerColours[i % numPlayers]));
         //}

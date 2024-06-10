@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+
+        final int maxNumPlayers = 6;
+        
         Scanner read = new Scanner(System.in);
         System.out.println();
         System.out.println("Welcome to the Snakes and Ladders !");
@@ -12,20 +15,20 @@ public class Main {
         System.out.println("The snake cases are colored in RED and ladder cases in GREEN");
         System.out.println("And the players will be displayed in BLUE.");
         System.out.println();
-        System.out.println("Now, please enter the number of players (max 4).");
+        System.out.println("Now, please enter the number of players (max " + maxNumPlayers + ").");
 
         // get the number of players
         int numPlayers = 0;
         while (true) {
             numPlayers = read.nextInt();
-            if(numPlayers > 4) {
-                System.out.println("Maximum number of players is 4!");
+            if(numPlayers > maxNumPlayers) {
+                System.out.println("Maximum number of players is " + maxNumPlayers + "!");
             } else if (numPlayers <= 0) {
                 System.out.println("Number of players cannot be less than 1!");
             } else {
                 break;
             }
-            System.out.println("Please enter the number of players (max 4).");
+            System.out.println("Please enter the number of players (max " + maxNumPlayers + ").");
         }
 
         Game game = new Game(numPlayers, 1);
