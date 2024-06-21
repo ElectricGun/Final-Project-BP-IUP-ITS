@@ -23,6 +23,7 @@ public class Main {
         int numPlayers = 0;
         while (true) {
             numPlayers = read.nextInt();
+            read.nextLine();
             if(numPlayers > maxNumPlayers) {
                 System.out.println("Maximum number of players is " + maxNumPlayers + "!");
             } else if (numPlayers <= 0) {
@@ -39,6 +40,7 @@ public class Main {
         int dieSides = 0;
         while (true) {
             dieSides = read.nextInt();
+            read.nextLine();
             if(dieSides > maxDieSides) {
                 System.out.println("Maximum die sides is " + maxDieSides + "!");
             } else if (numPlayers <= 0) {
@@ -47,6 +49,21 @@ public class Main {
                 break;
             }
             System.out.println("Please enter the number of die sides (max " + maxDieSides + ").");
+        }
+
+        System.out.println("Now, please enter the number of rolls gained per turn.");
+
+        // get the sides of die
+        int rollsPerTurn = 0;
+        while (true) {
+            rollsPerTurn = read.nextInt();
+            read.nextLine();
+            if (rollsPerTurn <= 0) {
+                System.out.println("Die sides cannot be less than 1!");
+            } else {
+                break;
+            }
+            System.out.println("Please enter the number of rolls gained per turn.");
         }
 
         Game game = new Game(numPlayers, 1);
@@ -68,21 +85,59 @@ public class Main {
             for (int i = 0; i < numPlayers; i++) {
 
                 Player currPlayer = game.getPlayer(i);
+                currPlayer.addTurns(rollsPerTurn);
+
+                int numberOfRolls = 0;
+
                 if (!autoMode) {
                     // get input
-                    System.out.println(currPlayer.getName() + "'s turn! \nEnter anything to continue.");
-                    String rolling = read.nextLine();
+                    System.out.println(currPlayer.getName() + 
+                                    "'s turn! \n You have " + currPlayer.getNumberOfTurns() + " rolls." + "\n" +
+                                    "Please enter the number of rolls you want to use");
+                    String rolling = "";
                     
-                    while(rolling.isBlank())
-                        rolling = read.nextLine();
+                    while(true) {
+                        rolling = read.nextLine(); // TODO ADD VARIABLE NUMBER OF ROLLS
+                        numberOfRolls = 0;
+
+                        try {
+                            numberOfRolls = Integer.parseInt(rolling);
+                            
+                            if (numberOfRolls > currPlayer.getNumberOfTurns()) {
+                                System.out.println("Number of rolls exceeding your turns!");
+                                System.out.println("Please enter the number of rolls you want to use");
+                            } else if (numberOfRolls < 0) {
+                                System.out.println("Number of rolls cannot be negative!");
+                                System.out.println("Please enter the number of rolls you want to use");
+                            }
+                            else {
+                                currPlayer.setNumberOfTurns(currPlayer.getNumberOfTurns() - numberOfRolls);
+                                break;
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Must be an integer!");
+                            continue;
+                        }
+                    }
+                } else {
+                    numberOfRolls = currPlayer.getNumberOfTurns();
                 }
 
                 Functions.printLoop("\n", 15);
 
                 // roll dice and move
-                int moveSteps = dice.roll();
+                int moveSteps = 0;
+
+                for (int m = 0; m < numberOfRolls; m++) {
+                    int diceRoll = dice.roll();
+                    moveSteps += diceRoll;
+                    System.out.println(currPlayer.getName() + " has rolled " + diceRoll);
+                }
+
+                System.out.println("\n" + currPlayer.getName() + " will move for " + moveSteps + " steps.");
+
+                System.out.println(moveSteps);
                 
-                System.out.println("\n" + currPlayer.getName() + " has rolled " + moveSteps);
                 int previousCase = currPlayer.getCurrentCase();
 
                 game.movePlayer(i, moveSteps);

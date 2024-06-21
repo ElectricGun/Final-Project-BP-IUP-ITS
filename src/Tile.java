@@ -20,6 +20,17 @@ public class Tile {
         updateName();
     }
 
+    public Tile (int numberSet, int jumpIndexSet, String nameSet) {
+        number = numberSet;
+        jumpIndex = jumpIndexSet;
+        name = nameSet;
+        
+        if (jumpIndexSet < -1) {
+            throw new IllegalArgumentException("Jump index of tile cannot be below -1!");
+        }
+
+    }
+
     private void updateName() {
         if (jumpIndex == -1) {
             name = TileNames.tile;

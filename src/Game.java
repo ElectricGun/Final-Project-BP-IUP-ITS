@@ -31,12 +31,10 @@ public class Game {
 
         spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles * 2 + 2), numPlayers * 2)) * tileScale + 2;
 
-        // ----- initialise players
+        // ----- set player colours
         String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_BLUE, Pallette.ANSI_YELLOW, Pallette.ANSI_GREEN, Pallette.ANSI_RED};
-        //for (int i = 0; i < numPlayers; i++) {
-        //    players.add(new Player(i + 1, 0, playerColours[i % numPlayers]));
-        //}
 
+        // initiate players
         if(numPlayers > 1) {
             System.out.println();
             System.out.println("Each player will roll the dice to decide the players' turn.");
@@ -191,9 +189,7 @@ public class Game {
         for (int y = 0; y < boardHeight; y++) {
 
             int yIndex = boardHeight - 1 - y;
-
             int startIndex = yIndex * boardWidth;
-
             int remainder = 0;
 
             for (int x = 0; x < boardWidth + remainder; x++) {
@@ -244,7 +240,7 @@ public class Game {
                     }
                     
                     System.out.print(Pallette.ANSI_RESET);
-                    
+    
                 }
             }
             // print between the rows
