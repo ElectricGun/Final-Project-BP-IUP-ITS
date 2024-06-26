@@ -29,12 +29,14 @@ public class Game {
 
         // ----- set tile size
 
-        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles * 2 + 2), numPlayers * 2)) * tileScale + 2;
+        spacesPerTile = (Math.max(Functions.getDigits10(numberOfTiles) + 1, numPlayers * 2)) * tileScale + 2;
 
         // ----- set player colours
         String [] playerColours = {Pallette.ANSI_CYAN, Pallette.ANSI_PURPLE, Pallette.ANSI_BLUE, Pallette.ANSI_YELLOW, Pallette.ANSI_GREEN, Pallette.ANSI_RED};
 
         // initiate players
+
+        // chiyoung part
         if(numPlayers > 1) {
             System.out.println();
             System.out.println("Each player will roll the dice to decide the players' turn.");
@@ -71,13 +73,19 @@ public class Game {
 
         // -- crate initial tile
 
-        Tile initialTile = new Tile(0, -1);
+        Tile initialTile = new Tile(0, -1, false);
         initialTile.setName(TileNames.startingTile);
         board.add(initialTile);
 
         // -- create the tiles
         for (int i = 1; i <= numberOfTiles; i++ ) {
-            board.add(new Tile(i, -1));
+            boolean setScoreTile = (Math.random() * 100) > 70;
+            Tile newTile = new Tile(i, -1, setScoreTile);
+            
+            if (setScoreTile) {
+                newTile.setColour(Pallette.ANSI_YELLOW);
+            }
+            board.add(newTile);
         }
 
         // -- set the tile jump indeces
@@ -168,16 +176,6 @@ public class Game {
 
     public void printTable () {
         
-        /*
-        for(Tile tile : board) {
-            System.out.println(
-                tile.getColour()+
-                tile.getName() + "\t" +
-                tile.getNumber() + 
-                (tile.getJumpIndex() == -1 ? "" : "--->" + tile.getJumpIndex())
-            );
-        }*/
-        
 
         // get player positions
         int [] playerPositions = new int[players.size()];
@@ -188,11 +186,11 @@ public class Game {
         
         for (int y = 0; y < boardHeight; y++) {
 
-            int yIndex = boardHeight - 1 - y;
+            // iterate in reverse
+            int yIndex = boardHeight - y - 1;
             int startIndex = yIndex * boardWidth;
-            int remainder = 0;
 
-            for (int x = 0; x < boardWidth + remainder; x++) {
+            for (int x = 0; x < boardWidth; x++) {
 
                 int currentTileIndex = x + startIndex;
                 if (yIndex % 2 == 1) {
@@ -223,9 +221,11 @@ public class Game {
                         playersInTile ++;
                     }
                 }
+
                 if (playersInTile > 0) {
                     Functions.printLoop(" ", spacesPerTile - playersInTile * 2);
                 }
+
                 if (doPrintNumber) {
 
                     System.out.print(currentTile.getColour() + (currentTileIndex));
@@ -244,7 +244,7 @@ public class Game {
                 }
             }
             // print between the rows
-            Functions.printLoop("\n", spacesPerTile / 2);
+            Functions.printLoop("\n", Math.max(spacesPerTile / 4, 2));
         }
     }
 }

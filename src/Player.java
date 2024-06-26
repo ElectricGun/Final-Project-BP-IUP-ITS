@@ -4,6 +4,8 @@ public class Player {
     private String name = "Player ";
     private int currentTile;
     private int numberOfTurns = 0;
+    private int score = 0;
+
     public Player(int number, int currentTile, String colour){
         this.number = number;
         this.name += number;
@@ -36,7 +38,18 @@ public class Player {
     public void addTurns(int n) {
         this.numberOfTurns += n;
     }
+
+    public void setScore(int n) {
+        this.score = n;
+    }
+
+    public void addScore(int n) {
+        this.score = this.score + n;
+    }
     
+    public int getScore() {
+        return this.score;
+    }
     public void setCurrentCase(int n){
         this.currentTile = n;
     }

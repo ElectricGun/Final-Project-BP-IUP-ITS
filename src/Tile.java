@@ -1,17 +1,14 @@
 public class Tile {
     private int number;
     private int jumpIndex;
-
-    // types are "Snake", "Ladder", "Tile"
     private String name;
-
-    //private ArrayList<Player> players = new ArrayList<Player>();
-    
     private String colour = Pallette.ANSI_RESET;
+    private boolean scoreTile = false;
 
-    public Tile (int numberSet, int jumpIndexSet) {
-        number = numberSet;
-        jumpIndex = jumpIndexSet;
+    public Tile (int numberSet, int jumpIndexSet, boolean scoreSet) {
+        this.number = numberSet;
+        this.jumpIndex = jumpIndexSet;
+        this.scoreTile = scoreSet;
 
         if (jumpIndexSet < -1) {
             throw new IllegalArgumentException("Jump index of tile cannot be below -1!");
@@ -20,15 +17,15 @@ public class Tile {
         updateName();
     }
 
-    public Tile (int numberSet, int jumpIndexSet, String nameSet) {
-        number = numberSet;
-        jumpIndex = jumpIndexSet;
-        name = nameSet;
+    public Tile (int numberSet, int jumpIndexSet, boolean scoreSet, String nameSet) {
+        this.number = numberSet;
+        this.jumpIndex = jumpIndexSet;
+        this.name = nameSet;
+        this.scoreTile = scoreSet;
         
         if (jumpIndexSet < -1) {
             throw new IllegalArgumentException("Jump index of tile cannot be below -1!");
         }
-
     }
 
     private void updateName() {
@@ -59,16 +56,6 @@ public class Tile {
 
     // --------- setters
 
-    //public void addPlayer(Player newPlayer) {
-    //    players.add(newPlayer);
-    //}
-//
-    //public void deletePlayer(Player deletePlayer) {
-//
-    //    int indexOfPlayer = players.indexOf(deletePlayer);
-    //    players.remove(indexOfPlayer);
-    //}
-
     public void setName(String newName) {   
         name = newName;
     }
@@ -77,23 +64,19 @@ public class Tile {
         number = newNumber;
         updateName();
     }
+
     public void setJumpIndex(int newJumpIndex) {
         jumpIndex = newJumpIndex;
         updateName();
     }
+
     public void setColour(String newColour) {
         colour = newColour;
     }
 
-    // --------- getters
-
     public String getName() {
         return name;
     }
-
-    //public ArrayList<Player> getPlayers () {
-    //    return players;
-    //}
 
     public int getNumber() {
         return number;
@@ -103,5 +86,19 @@ public class Tile {
     }
     public String getColour() {
         return colour;
+    }
+
+    public void setScoreTile(boolean n) {
+        this.scoreTile = n;
+
+        if (!n) {
+            setColour(Pallette.ANSI_RESET);
+        } else {
+            setColour(Pallette.ANSI_YELLOW);
+        }
+    }
+
+    public boolean isScoreTile() {
+        return scoreTile;
     }
 }
