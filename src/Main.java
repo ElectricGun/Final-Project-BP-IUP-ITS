@@ -6,8 +6,9 @@ public class Main {
         final int maxNumPlayers = 6;
         final int maxDieSides = 20;
 
-        // chiyoung part
         Scanner read = new Scanner(System.in);
+        
+        // chiyoung part
         System.out.println();
         System.out.println("Welcome to the Snakes and Ladders !");
         System.out.println();
