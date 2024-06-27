@@ -31,6 +31,10 @@ public class Player {
         return this.colour;
     }
 
+    public int getScore() {
+        return this.score;
+    }
+
     public void setNumberOfTurns(int n) {
         this.numberOfTurns = n;
     }
@@ -46,11 +50,16 @@ public class Player {
     public void addScore(int n) {
         this.score = this.score + n;
     }
-    
-    public int getScore() {
-        return this.score;
-    }
+
     public void setCurrentCase(int n){
         this.currentTile = n;
+    }
+
+    public void printStatus() {
+        System.out.println(this.getName() +  ":");
+
+        System.out.println("\tYou are on tile " + this.getCurrentCase());
+        System.out.println("\tYou have " + this.getScore() + " points");
+        System.out.println("\tYou have " + this.getNumberOfTurns() + " turns");
     }
 }

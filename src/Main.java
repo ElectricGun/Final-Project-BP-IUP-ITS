@@ -63,7 +63,7 @@ public class Main {
             rollsPerTurn = read.nextInt();
             read.nextLine();
             if (rollsPerTurn <= 0) {
-                System.out.println("Die sides cannot be less than 1!");
+                System.out.println("Rolls per turn cannot be less than 1!");
             } else {
                 break;
             }
@@ -86,6 +86,7 @@ public class Main {
         }
 
         System.out.println(isSingleplayer);
+
         Game game = new Game(numPlayers, 1);
 
         Dice dice = new Dice(dieSides);
@@ -118,7 +119,8 @@ public class Main {
                     if (!isSingleplayer || (isSingleplayer && (currPlayer.getName().equals("Player 1")))) {
                         // get input
                         
-                        printStatus(currPlayer);
+                        currPlayer.printStatus();
+                        
                         if (currentTurnCounter == 0) {
                         System.out.println(
                                         "\tPlease enter the number of rolls you want to use in one go\n");
@@ -129,7 +131,7 @@ public class Main {
                         String rolling = "";
                         
                         while(true) {
-                            rolling = read.nextLine(); // TODO ADD VARIABLE NUMBER OF ROLLS
+                            rolling = read.nextLine(); // DONE ADD VARIABLE NUMBER OF ROLLS
                             numberOfRolls = 0;
 
                             try {
@@ -152,8 +154,8 @@ public class Main {
                                 continue;
                             }
                         }
-                    } else {
-                        printStatus(currPlayer);
+                    } else { // CPU character ai
+                        currPlayer.printStatus();
                         System.out.println("\tPlease enter the number of rolls you want to use");
 
                         Functions.wait((int) Math.random() * 500);
@@ -225,7 +227,6 @@ public class Main {
                             System.out.println(currPlayer.getName() + " has moved from " + (previousCase) + " to " + (currPlayer.getCurrentCase()));
                         } else {
                             // if the player has stepped on a normal tile, break the loop
-
                             break;
                         }
                     }
@@ -252,13 +253,5 @@ public class Main {
             }
         }
         read.close();
-    }
-
-    public static void printStatus(Player player) {
-        System.out.println(player.getName() +  ":");
-
-        System.out.println("\tYou are on tile " + player.getCurrentCase());
-        System.out.println("\tYou have " + player.getScore() + " points");
-        System.out.println("\tYou have " + player.getNumberOfTurns() + " turns");
     }
 }

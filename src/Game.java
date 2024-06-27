@@ -5,6 +5,7 @@ public class Game {
     // tile number 0 is the Starting Tile. All players first spawn in on that tile. This tile is not displayed
     // tile number 1 is the first tile
     // tiles are displayed using their number + 1
+    
     private ArrayList<Tile> board = new ArrayList<Tile>();
 
     public final int offset = 1;
